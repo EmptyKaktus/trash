@@ -1,21 +1,16 @@
 import sys
 from random import randrange
 
+from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtWidgets import QWidget, QApplication, QPushButton
+from PyQt5.QtWidgets import QWidget, QApplication
 
 
 class MyWidget(QWidget):
     def __init__(self):
         super().__init__()
         self.ell_TF = False
-        self.setGeometry(100, 100, 700, 700)
-        self.setWindowTitle('gfhdjsk')
-
-        self.btn = QPushButton(self)
-        self.btn.move(290, 320)
-        self.btn.resize(120, 30)
-        self.btn.setText('Draw ellipse')
+        uic.loadUi('UI.ui', self)
         self.btn.clicked.connect(self.ell_click)
 
     def paintEvent(self, event):
@@ -32,9 +27,9 @@ class MyWidget(QWidget):
 
     def draw_ell(self, qp):
         qp.setBrush(QColor('yellow'))
-        x, y = randrange(700), randrange(700)
+        x, y = 350, 350
         rad = randrange(350)
-        qp.drawEllipse(x, y, rad, rad)
+        qp.drawEllipse(x - (rad // 2), y - (rad // 2), rad, rad)
 
 
 if __name__ == '__main__':
